@@ -9,20 +9,11 @@ app.use(express.static('./methods-publics'))
 app.use(express.urlencoded({extended: false}))
 //In order to get the data we have to use a middleware to treat the object of http request.
 //since we have a built-in middleware in Express we can just parse the data with it, this will make so that
-//the server can treat the data for further uses.
+// the server can treat the data for further uses
 
-// parse json.
+// parse json
 app.use('/api/people', express.json())
 
-app.post('/login', (req, res)=>{
-    //console.log(req)
-    const {name} = req.body
-    if(name) {
-        return res.status(200).send(`Welcome, ${name}!`)
-    }
-    
-    res.status(401).send("I don't know you. Provide your credentials, your moron")
-})
 
 app.get('/api/people', (req, res)=>{
     res.status(200).json({success:true, data:people})
@@ -91,7 +82,15 @@ app.delete('/api/people/postman/:id', (req, res)=>{
         msg: `Deleted this >${id}< sucker from the data`})
 })
 
-
+app.post('/login', (req, res)=>{
+    //console.log(req)
+    const {name} = req.body
+    if(name) {
+        return res.status(200).send(`Welcome, ${name}!`)
+    }
+    
+    res.status(401).send("I don't know you. Provide your credentials, your moron")
+})
 
 app.listen(5000, ()=>{
     console.log("Bip Bip Bip.... 5000")
